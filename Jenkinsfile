@@ -7,7 +7,7 @@ pipeline {
     environment {
         WORKSPACE = "/var/lib/jenkins/workspace/Project"
         DOCKER_IMAGE = "myapp-backend:1.0"
-        REGISTRY = "teja072/myapp-backend:1.0"
+        REGISTRY = "teja072/myapp-backend"
     }
 
     stages {
