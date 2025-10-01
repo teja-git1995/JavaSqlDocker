@@ -42,7 +42,7 @@ pipeline {
             steps {
                 sh """
                     docker service update --image ${REGISTRY}:latest backend || \
-                    docker service create --name backend --replicas 3 --publish 8080:8080 ${REGISTRY}:latest
+                    docker service create --name backend --replicas 3 --publish 8081:8081 ${REGISTRY}:latest
                 """
             }
         }
