@@ -5,6 +5,7 @@ pipeline {
     maven 'TejaMVN'
 }
     environment {
+        WORKSPACE = "/var/lib/jenkins/workspace/Project"
         DOCKER_IMAGE = "myapp-backend:1.0"
         REGISTRY = "teja072/myapp-backend"
     }
@@ -18,19 +19,20 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'cd ${WORKSPACE}/backend && mvn clean package'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE} ./backend"
+                sh "cd ${WORKSPACE}/backend"
+                sh "docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
         stage('Push to Registry') {
             steps {
-                withDockerRegistry([credentialsId: 'docker-hub-creds', url: '']) {
+                withDockerRegistry([credentialsId: 'dockerhub-cred', url: '']) {
                     sh "docker tag ${DOCKER_IMAGE} ${REGISTRY}:latest"
                     sh "docker push ${REGISTRY}:latest"
                 }
