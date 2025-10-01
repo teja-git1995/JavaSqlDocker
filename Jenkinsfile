@@ -7,7 +7,7 @@ pipeline {
     environment {
         WORKSPACE = "/var/lib/jenkins/workspace/Project"
         DOCKER_IMAGE = "myapp-backend:1.0"
-        REGISTRY = "teja072/myapp-backend"
+        REGISTRY = "teja072/myapp-backend:1.0"
     }
 
     stages {
@@ -25,8 +25,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "cd ${WORKSPACE}/backend"
-                sh "docker build -t ${DOCKER_IMAGE} ."
+                sh "cd ${WORKSPACE}/backend && docker build -t ${DOCKER_IMAGE} ."
             }
         }
 
